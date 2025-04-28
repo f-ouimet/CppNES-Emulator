@@ -8,8 +8,6 @@ using namespace std;
 int main(int argc, char *argv[]) {
   WindowUtils::Window myWin;
   SDL_Window *window = myWin.createWindow("test");
-  while (1) {
-  }
 
   return EXIT_SUCCESS;
 }
