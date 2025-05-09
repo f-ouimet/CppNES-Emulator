@@ -294,6 +294,36 @@ CPU::CPU() {
   instructionTable[0xFD] = [this]() { this->SBC_AbsoluteX(); };
   instructionTable[0xFE] = [this]() { this->INC_AbsoluteX(); };
   instructionTable[0xFF] = [this]() { this->ISC_AbsoluteX(); };
+
+  // initializing reg values
+  SP = 0xFD;
 }
 
-void BRK() { return; }
+// TODO:
+//  push and pulls
+//  generic funcs
+void CPU::push(uint8_t value) {
+  mem[0x0100 + SP] = value;
+  SP--;
+}
+uint8_t CPU::pop() {
+  SP++;
+  return mem[0x0100 + SP];
+}
+
+//  6502 OPs for push and pulls
+void CPU::PHP() {}
+void CPU::PHA() {}
+void CPU::PLP() {}
+void CPU::PLA() {}
+
+// TODO: Complete this
+//  simulates an Interrupt
+void CPU::BRK() {
+  PC++;
+  PS |= 00000100;
+}
+void CPU::JSR_Absolute() {}
+void CPU::RTI() {}
+void CPU::RTS() {}
+void CPU::NOP_Immediate() {}

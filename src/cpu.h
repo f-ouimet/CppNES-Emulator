@@ -8,10 +8,12 @@
 class CPU {
 private:
   uint16_t PC;
-  uint16_t SP; // upper 8bits are fixed to 00000001
+  uint8_t SP;    // stack pointer
+  uint8_t stack; // upper 8bits are fixed to 00000001 so we use a uint8_t to set
+                 // modifiable bits
 
   uint8_t accumulator;
-  uint8_t processorStatusReg;
+  uint8_t PS;
   uint8_t xIndex;
   uint8_t yIndex;
 
@@ -335,6 +337,8 @@ private:
 
   // Instruction table
   std::array<std::function<void()>, 256> instructionTable;
+  void push(uint8_t value);
+  uint8_t pop();
 
 public:
   // Constructor
